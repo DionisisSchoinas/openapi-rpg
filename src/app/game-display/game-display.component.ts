@@ -1,29 +1,29 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { PageService } from '../page-data-service.service';
+import { PageData } from '../page-data';
 
-interface Response {  
-  number: Number;  
-  array: Number[];  
-  string: String;  
-}  
 
 @Component({
-  selector: 'app-game-display',
+  selector: 'game-display',
   templateUrl: './game-display.component.html',
   styleUrls: ['./game-display.component.css']
 })
 export class GameDisplayComponent {
-  result: Response | undefined;
+  public pages: PageData[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor (private pageService: PageService) { }
 
-  getData() {
-    this.http.post<Response>('http://demo1926491.mockable.io', { data: 'some data' })
-      .subscribe(
-        data => {
-          this.result = data;
-          console.log(this.result);
-        }
-      );
+  ngOnInit() {
+    this.pageService.currentText.subscribe(text => {
+      if (text == null || text == undefined || Object.keys(text).length == 0)
+        return;
+      this.pages.push({role: "assistant", text: this.parseText(text)});
+      this.pageService.updatedTexts(this.pages);
+    })
   }
+
+  parseText(text: Object): string {
+    return JSON.stringify(text);
+  }
+  
 }

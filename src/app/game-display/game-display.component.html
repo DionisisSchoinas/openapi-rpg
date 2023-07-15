@@ -1,7 +1,9 @@
+<api-requester></api-requester>
 <div>
-    <p>Click the button to run a function:</p>
-    <button (click)="getData()">OK</button>
-    <p>{{result?.number}}</p>
-    <p>{{result?.array}}</p>
-    <p>{{result?.string}}</p>
+    <p>Pages</p>
+    <ul>
+        <li *ngFor="let page of pages; let i = index">
+            {{ i + 1 }} - {{ page.role }}  |  {{ page.text }}
+        </li>
+    </ul>
 </div>

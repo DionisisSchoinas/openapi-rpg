@@ -7,12 +7,14 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { GameDisplayComponent } from './game-display/game-display.component';
+import { ApiRequesterComponent } from './api-requester/api-requester.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FileUploadComponent,
     GameDisplayComponent,
+    ApiRequesterComponent,
   ],
   imports: [
     BrowserModule,
