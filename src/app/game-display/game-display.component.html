@@ -1,9 +1,10 @@
-<api-requester></api-requester>
-<div>
-    <p>Pages</p>
-    <ul>
-        <li *ngFor="let page of pages; let i = index">
-            {{ i + 1 }} - {{ page.role }}  |  {{ page.text }}
-        </li>
-    </ul>
-</div>
+<p>Click the button to run a function:</p>
+<button (click)="getData()">OK</button>
+<p>Pages</p>
+<table>
+    <tr>
+        <th>Role</th>
+        <th>Text</th>
+    </tr>
+    <tr page-data *ngFor="let page of pages" [page]=page>
+</table>

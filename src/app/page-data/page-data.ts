@@ -1,4 +1,6 @@
+import { Role } from "./role";
+
 export interface PageData {
     text: string;
-    role: string;
+    role: Role;
 }

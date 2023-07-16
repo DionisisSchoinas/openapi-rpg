@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { PageService } from '../page-data-service.service';
-import { PageData } from '../page-data';
+import { PageData } from '../page-data/page-data';
+import { ApiRequesterService } from '../api-requester/api-requester.service';
+import { Role } from '../page-data/role';
 
 
 @Component({
@@ -11,19 +12,23 @@ import { PageData } from '../page-data';
 export class GameDisplayComponent {
   public pages: PageData[] = [];
 
-  constructor (private pageService: PageService) { }
+  constructor (private apiRequesterService: ApiRequesterService) { }
 
   ngOnInit() {
-    this.pageService.currentText.subscribe(text => {
+    this.apiRequesterService.currentText.subscribe(text => {
       if (text == null || text == undefined || Object.keys(text).length == 0)
         return;
-      this.pages.push({role: "assistant", text: this.parseText(text)});
-      this.pageService.updatedTexts(this.pages);
+      this.pages.push({role: Role.ASSISTANT, text: this.parseText(text)});
+      this.apiRequesterService.updatedTexts(this.pages);
     })
   }
 
   parseText(text: Object): string {
     return JSON.stringify(text);
+  }
+
+  getData() {
+    this.apiRequesterService.requestDataFromApi();
   }
   
 }

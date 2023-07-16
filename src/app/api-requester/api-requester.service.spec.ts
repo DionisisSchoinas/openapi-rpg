@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PageService } from './page-data-service.service';
+import { ApiRequesterService } from './api-requester.service';
 
-describe('PageDataServiceService', () => {
-  let service: PageService;
+describe('ApiRequesterService', () => {
+  let service: ApiRequesterService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PageService);
+    service = TestBed.inject(ApiRequesterService);
   });
 
   it('should be created', () => {
