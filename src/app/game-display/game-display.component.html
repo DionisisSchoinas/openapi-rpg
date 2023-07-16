@@ -1,5 +1,7 @@
-<p>Click the button to run a function:</p>
-<button (click)="getData()">OK</button>
+<!-- <input #userInput (keyup.enter)="sendUserInput(userInput.value)" (blur)="sendUserInput(userInput.value); userInput.value='' "> -->
+<input #userInput>
+<button type="button" (click)="sendUserInput(userInput.value)">Send</button>
+
 <p>Pages</p>
 <table>
     <tr>

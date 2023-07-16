@@ -9,5 +9,5 @@ import { Role } from './role';
 })
 export class PageDataComponent {
   @Input()
-  page: PageData = { role: Role.NONE, text: '' };
+  page: PageData = { role: Role.NONE, content: '' };
 }
