@@ -1,10 +1,9 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { PageData } from '../page-data/page-data';
-import { HttpHeaders } from '@angular/common/http';
-import { Role } from '../page-data/role';
 import Key from "../../assets/_keys/key.json";
+import { PageData } from '../page-data/page-data';
+import { Role } from '../page-data/role';
 
 interface ApiResponse {
   choices: {
@@ -52,7 +51,7 @@ export class ApiRequesterService {
 
   request: ApiRequest = { model: 'gpt-3.5-turbo', messages: [], temperature: 1, max_tokens: 256, top_p: 1, frequency_penalty: 0, presence_penalty: 0 };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private newData(data: PageData) {
     this.dataSource.next(data)
@@ -68,20 +67,16 @@ export class ApiRequesterService {
   }
 
   private requestDataFromApi() {
-    this.http.post<ApiResponse>('https://api.openai.com/v1/chat/completions', this.request, { headers: this.headers })
-      .subscribe(
-        resp => {
-          console.log("Response:");
-          console.log(resp);
-          this.newData({ role: Role.ASSISTANT,  content: resp.choices[0].message.content});
-        },
-        error => {
-          console.log("Error:");
-          console.log(error);
-        },
-        () => {
-          console.log('Completed');
-        }
-      );
+    // this.http.post<ApiResponse>('https://api.openai.com/v1/chat/completions', this.request, { headers: this.headers })
+    //   .subscribe(
+    //     resp => {
+    //       this.newData({ role: Role.ASSISTANT, content: resp.choices[0].message.content });
+    //     },
+    //     error => {
+    //       console.log("Error:");
+    //       console.log(error);
+    //     }
+    //   );
+    this.newData({ role: Role.ASSISTANT, content: "Response for : " + this.request.messages[this.request.messages.length - 1].content });
   }
 }

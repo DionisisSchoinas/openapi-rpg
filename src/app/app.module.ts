@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { GameDisplayComponent } from './game-display/game-display.component';
 import { PageDataComponent } from './page-data/page-data.component';
+import { FileSaverComponent } from './file-saver/file-saver.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { PageDataComponent } from './page-data/page-data.component';
     FileUploadComponent,
     GameDisplayComponent,
     PageDataComponent,
+    FileSaverComponent,
   ],
   imports: [
     BrowserModule,
