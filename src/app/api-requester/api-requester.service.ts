@@ -53,7 +53,7 @@ export class ApiRequesterService {
 
   constructor(private http: HttpClient) {}
 
-  private newData(data: PageData) {
+  newData(data: PageData) {
     this.dataSource.next(data)
   }
 

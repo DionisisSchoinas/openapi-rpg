@@ -1,6 +1,5 @@
-<!-- <input #userInput (keyup.enter)="sendUserInput(userInput.value)" (blur)="sendUserInput(userInput.value); userInput.value='' "> -->
-<input #userInput>
-<button type="button" (click)="sendUserInput(userInput.value)">Send</button>
+<input #userInput (keyup.enter)="sendUserInput(userInput.value); userInput.value='' ">
+<button type="button" (click)="sendUserInput(userInput.value); userInput.value='' ">Send</button>
 
 <file-saver *ngIf="pages.length > 1" [pageData]=pages></file-saver>
 
@@ -10,6 +9,6 @@
         <th>Role</th>
         <th>Text</th>
     </tr>
-    <tr page-data *ngFor="let page of pages" [page]=page>
     <!-- <tr page-data *ngFor="let page of displayablePages()" [page]=page> -->
+    <tr page-data *ngFor="let page of pages" [page]=page>
 </table>

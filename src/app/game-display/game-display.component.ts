@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ApiRequesterService } from '../api-requester/api-requester.service';
 import { PageData } from '../page-data/page-data';
 import { Role } from '../page-data/role';
@@ -11,7 +11,8 @@ import { Role } from '../page-data/role';
   styleUrls: ['./game-display.component.css']
 })
 export class GameDisplayComponent implements OnInit {
-  public pages: PageData[] = [];
+  @Input()
+  pages: PageData[] = [];
 
   constructor(private http: HttpClient, private apiRequesterService: ApiRequesterService) { }
 
@@ -20,6 +21,8 @@ export class GameDisplayComponent implements OnInit {
     this.apiRequesterService.currentData.subscribe(data => {
       if (data == null || data == undefined || data.role == Role.NONE)
         return;
+      if (data.role == Role.SYSTEM)
+        this.pages = [];
       this.pages.push(data);
       this.apiRequesterService.updatedTexts(this.pages);
     })
@@ -34,7 +37,7 @@ export class GameDisplayComponent implements OnInit {
   }
 
   displayablePages() {
-    return this.pages.filter(page => page.role != Role.NONE && page.role != Role.SYSTEM);
+    return this.pages.filter(page => page.role == Role.USER || page.role == Role.ASSISTANT);
   }
 
   private loadDefault() {
@@ -44,6 +47,7 @@ export class GameDisplayComponent implements OnInit {
           this.pages.push({ role: Role.SYSTEM, content: data });
         },
         error => {
+          //TODO: handle error
           console.log("Error:");
           console.log(error);
         }
