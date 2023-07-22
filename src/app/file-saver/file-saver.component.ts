@@ -1,7 +1,5 @@
-import { Component, Input } from '@angular/core';
-import * as saveAs from 'file-saver';
-import { PageData } from '../page-data/page-data';
-import { formatDate } from '@angular/common';
+import { Component } from '@angular/core';
+import { FileSaverService } from './file-saver.service';
 
 @Component({
   selector: 'file-saver',
@@ -9,12 +7,10 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./file-saver.component.css']
 })
 export class FileSaverComponent {
-  @Input()
-  pageData: PageData[] = [];
 
-  saveGame(data: PageData[]) {
-    let file = new Blob([JSON.stringify(data)], { type: 'application/json;charset=utf-8' });    
-    saveAs(file, 'save_' + formatDate(new Date(), 'yyyyMMdd_HHmmss', 'en-US ')  + '.json')
-    this.pageData = [];
+  constructor(private fileSaverService: FileSaverService) {}
+
+  saveGame() {
+    this.fileSaverService.requestSave();
   }
 }

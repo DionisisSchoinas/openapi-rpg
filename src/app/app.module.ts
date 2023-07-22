@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { GameDisplayComponent } from './game-display/game-display.component';
 import { PageDataComponent } from './page-data/page-data.component';
 import { FileSaverComponent } from './file-saver/file-saver.component';
+import { GameResetComponent } from './game-reset/game-reset.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FileSaverComponent } from './file-saver/file-saver.component';
     GameDisplayComponent,
     PageDataComponent,
     FileSaverComponent,
+    GameResetComponent,
   ],
   imports: [
     BrowserModule,
