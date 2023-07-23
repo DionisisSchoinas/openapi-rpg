@@ -61,7 +61,7 @@ export class GameDisplayComponent implements OnInit, AfterViewChecked {
     if (text == null || text.trim().length == 0 || text.trim().length > 256)
       return;
 
-    this.pages.push({ role: Role.USER, content: text.trim() });
+    this.pages.push({ role: Role.USER, content: text.trim(), can_rollback: false });
     this.apiRequesterService.newUserInput(this.pages);
   }
 
@@ -79,7 +79,7 @@ export class GameDisplayComponent implements OnInit, AfterViewChecked {
     this.http.get('../../assets/default_rules/rules.txt', { responseType: 'text' })
       .subscribe(
         data => {
-          this.pages.push({ role: Role.SYSTEM, content: data });
+          this.pages.push({ role: Role.SYSTEM, content: data, can_rollback: false });
         },
         error => {
           //TODO: handle error

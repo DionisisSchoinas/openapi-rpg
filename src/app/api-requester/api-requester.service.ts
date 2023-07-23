@@ -27,7 +27,10 @@ interface ApiResponse {
 
 interface ApiRequest {
   model: string,
-  messages: PageData[],
+  messages: {
+    role: string;
+    content: string;
+  }[],
   temperature: number,
   max_tokens: number,
   top_p: number,
@@ -40,7 +43,7 @@ interface ApiRequest {
 })
 export class ApiRequesterService {
 
-  private dataSource = new BehaviorSubject<PageData>({ role: Role.NONE, content: "" });
+  private dataSource = new BehaviorSubject<PageData>({ role: Role.NONE, content: "", can_rollback: false });
   currentData = this.dataSource.asObservable();
 
   private keyJson: { key: string } = Key;
@@ -49,7 +52,7 @@ export class ApiRequesterService {
     .set('Content-Type', 'application/json')
     .set('Authorization', 'Bearer '.concat(this.keyJson.key));
 
-  request: ApiRequest = { model: 'gpt-3.5-turbo', messages: [], temperature: 1, max_tokens: 256, top_p: 1, frequency_penalty: 0, presence_penalty: 0 };
+  request: ApiRequest = { model: 'gpt-3.5-turbo', messages: [], temperature: 1, max_tokens: 350, top_p: 1, frequency_penalty: 0, presence_penalty: 0 };
 
   constructor(private http: HttpClient) {}
 
@@ -63,20 +66,21 @@ export class ApiRequesterService {
   }
 
   updatedTexts(sources: PageData[]) {
-    this.request.messages = sources;
+    this.request.messages = sources.map(source => { return { role: source.role, content: source.content}; });
   }
 
   private requestDataFromApi() {
-    // this.http.post<ApiResponse>('https://api.openai.com/v1/chat/completions', this.request, { headers: this.headers })
-    //   .subscribe(
-    //     resp => {
-    //       this.newData({ role: Role.ASSISTANT, content: resp.choices[0].message.content });
-    //     },
-    //     error => {
-    //       console.log("Error:");
-    //       console.log(error);
-    //     }
-    //   );
-    this.newData({ role: Role.ASSISTANT, content: "Response for : " + this.request.messages[this.request.messages.length - 1].content });
+    this.http.post<ApiResponse>('https://api.openai.com/v1/chat/completions', this.request, { headers: this.headers })
+      .subscribe(
+        resp => {
+          this.newData({ role: Role.ASSISTANT, content: resp.choices[0].message.content, can_rollback: true });
+        },
+        error => {
+          // TODO: Handle error
+          console.log("Error:");
+          console.log(error.error);
+        }
+      );
+    // this.newData({ role: Role.ASSISTANT, content: "Response for : " + this.request.messages[this.request.messages.length - 1].content });
   }
 }
