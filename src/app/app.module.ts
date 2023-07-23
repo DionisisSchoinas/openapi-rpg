@@ -10,6 +10,7 @@ import { GameDisplayComponent } from './game-display/game-display.component';
 import { PageDataComponent } from './page-data/page-data.component';
 import { FileSaverComponent } from './file-saver/file-saver.component';
 import { GameResetComponent } from './game-reset/game-reset.component';
+import { ShowRulesComponent } from './show-rules/show-rules.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { GameResetComponent } from './game-reset/game-reset.component';
     PageDataComponent,
     FileSaverComponent,
     GameResetComponent,
+    ShowRulesComponent,
   ],
   imports: [
     BrowserModule,

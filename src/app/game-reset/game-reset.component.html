@@ -1,1 +1,30 @@
-<button class="btn btn-outline-danger" (click)="resetGame()">Reset Game</button>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#resetModal">
+    Reset Game
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="resetModalLabel">Reset Game Notification</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                You are about to reset your game to the starting state.
+            </div>
+            <div class="modal-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <button type="button" class="btn btn-secondary col-auto me-auto ms-2" data-bs-dismiss="modal">Close</button>
+                        <div class="col-auto">
+                            <file-saver></file-saver>
+                            <button type="button" class="btn btn-danger ms-2" (click)="resetGame()" data-bs-dismiss="modal">Reset Game</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,31 @@
-<input type="file" class="file-input" (change)="onFileSelected($event)" #appFileUpload>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#fileUploadModal">
+    Load Save
+</button>
 
-<button class="btn btn-outline-success" (click)="appFileUpload.click()">Load Save</button>
+<!-- Modal -->
+<div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="fileUploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="fileUploadModalLabel">Load Save Notification</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                You are about to load a previous game save, which will overwrite the current game state.
+            </div>
+            <div class="modal-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <button type="button" class="btn btn-secondary col-auto me-auto ms-2" data-bs-dismiss="modal">Close</button>
+                        <div class="col-auto">
+                            <file-saver></file-saver>
+                            <input type="file" class="file-input" (change)="onFileSelected($event)" #appFileUpload>
+                            <button type="button" class="btn btn-warning ms-2" (click)="appFileUpload.click()" data-bs-dismiss="modal">Load Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

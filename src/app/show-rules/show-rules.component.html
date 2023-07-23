@@ -1,0 +1,20 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#rulesModal" (click)="requestRules()">
+    Show Rules/Initial Prompt
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl modal-fullscreen-xl-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="rulesModalLabel">Rules / Initial Prompt</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" [innerText]="rules"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary col-auto me-auto ms-2" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

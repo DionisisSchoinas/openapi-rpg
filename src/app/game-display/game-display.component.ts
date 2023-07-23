@@ -5,6 +5,7 @@ import { FileSaverService } from '../file-saver/file-saver.service';
 import { PageData } from '../page-data/page-data';
 import { Role } from '../page-data/role';
 import { GameResetService } from '../game-reset/game-reset.service';
+import { ShowRulesService } from '../show-rules/show-rules.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class GameDisplayComponent implements OnInit, AfterViewChecked {
     private http: HttpClient,
     private apiRequesterService: ApiRequesterService,
     private fileSaverService: FileSaverService,
-    private gameResetService: GameResetService) { }
+    private gameResetService: GameResetService,
+    private showRulesService: ShowRulesService) { }
 
   ngOnInit() {
     this.loadDefault();
@@ -44,6 +46,11 @@ export class GameDisplayComponent implements OnInit, AfterViewChecked {
       if (data) {
         this.pages = this.pages.slice(0, 1);
         this.gameResetService.gameHasBeenReset();
+      }
+    });
+    this.showRulesService.requestRules$.subscribe(data => {
+      if (data) {
+        this.showRulesService.sendBackRules(this.pages[0]);
       }
     });
   }
