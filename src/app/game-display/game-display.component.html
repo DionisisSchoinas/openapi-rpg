@@ -1,3 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="refresh-svg" viewBox="0 0 24 24" fill="none">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path
+                d="M4.06189 13C4.02104 12.6724 4 12.3387 4 12C4 7.58172 7.58172 4 12 4C14.5006 4 16.7332 5.14727 18.2002 6.94416M19.9381 11C19.979 11.3276 20 11.6613 20 12C20 16.4183 16.4183 20 12 20C9.61061 20 7.46589 18.9525 6 17.2916M9 17H6V17.2916M18.2002 4V6.94416M18.2002 6.94416V6.99993L15.2002 7M6 20V17.2916"
+                stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </symbol>
+</svg>
 <div class="container-fluid d-flex flex-column" style="height: 90vh;">
     <div class="row">
         <div class="col">
@@ -13,9 +24,29 @@
             </div>
         </div>
         <div class="col-7">
+            <!-- Chat display -->
             <div #dialogBox class="overflow-auto" style="height: 80vh;">
-                <div class="mb-auto p-2">
-                    <div class="card" *ngFor="let page of displayablePages(); index as i">
+                <!-- Without messages -->
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="info-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                    </symbol>
+                </svg>
+                <div class="alert alert-primary d-flex align-items-center mb-auto" role="alert"
+                    *ngIf="pages.length <= 1">
+                    <svg class="me-2" style="width: 25px; height: 25px;" role="img" aria-label="Info:">
+                        <use xlink:href="#info-fill" />
+                    </svg>
+                    <div>
+                        No messages have been sent or received.
+                    </div>
+                </div>
+                <!-- With messages -->
+                <div class="mb-auto p-2" *ngIf="pages.length > 1">
+                    <!-- <div class="card" [ngClass]="{'col-md-9': page.can_rollback, 'offset-md-3 col-md-9': !page.can_rollback}" *ngFor="let page of displayablePages(); index as i"> -->
+                    <div class="card col-md-9 mt-2 mb-2" [ngClass]="page.can_rollback ? '' : 'offset-md-3' "
+                        *ngFor="let page of displayablePages(); index as i">
                         <div class="card-body">
                             <h3 class="card-title">{{ page.role }}</h3>
                             <p class="card-text" [innerText]="page.content"></p>
@@ -25,6 +56,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Text input -->
             <div class="flex-fill d-flex justify-content-center">
                 <div class="input-group p-1">
                     <span class="input-group-text" id="basic-addon1">Message:</span>
@@ -37,9 +69,33 @@
             </div>
         </div>
         <div class="col">
-            <div class="container">
-                <h2>Inventory</h2>
-                <ol class="list-group list-group-numbered">
+            <div class="container-fluid">
+                <div class="row">
+                    <h2 class="col">Abilities</h2>
+                    <button type="button" class="btn btn-primary col-auto">
+                        <svg style="width: 25px; height: 25px;" role="img" aria-label="Info:">
+                            <use xlink:href="#refresh-svg" />
+                        </svg>
+                    </button>
+                </div>
+                <ul class="list-group row">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                </ul>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <h2 class="col">Inventory</h2>
+                    <button type="button" class="btn btn-primary col-auto">
+                        <svg style="width: 25px; height: 25px;" role="img" aria-label="Info:">
+                            <use xlink:href="#refresh-svg" />
+                        </svg>
+                    </button>
+                </div>
+                <ol class="list-group list-group-numbered row">
                     <li class="list-group-item">An item</li>
                     <li class="list-group-item">A second item</li>
                     <li class="list-group-item">A third item</li>
