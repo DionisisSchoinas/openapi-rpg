@@ -44,13 +44,13 @@
                 </div>
                 <!-- With messages -->
                 <div class="mb-auto p-2" *ngIf="pages.length > 1">
-                    <!-- <div class="card" [ngClass]="{'col-md-9': page.can_rollback, 'offset-md-3 col-md-9': !page.can_rollback}" *ngFor="let page of displayablePages(); index as i"> -->
-                    <div class="card col-md-9 mt-2 mb-2" [ngClass]="page.can_rollback ? '' : 'offset-md-3' "
+                    <div class="card col-md-9 mt-2 mb-2" [ngClass]="canRollback(page) ? '' : 'offset-md-3' "
                         *ngFor="let page of displayablePages(); index as i">
                         <div class="card-body">
-                            <h3 class="card-title">{{ page.role }}</h3>
+                            <h4 class="card-title">{{ page.role }}</h4>
+                            <h6 class="card-subtitle mb-3 text-body-secondary">{{ page.date | date: 'dd-MMM-yyyy HH:mm:ss' }}</h6>
                             <p class="card-text" [innerText]="page.content"></p>
-                            <button *ngIf="page.can_rollback" class="btn btn-outline-warning"
+                            <button *ngIf="canRollback(page)" class="btn btn-outline-warning"
                                 (click)="rollbackTo(i+1)">Rollback to this moment</button>
                         </div>
                     </div>

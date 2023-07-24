@@ -11,7 +11,7 @@ export class ShowRulesService {
   private requestRulesBus$ = new BehaviorSubject<boolean>(false);
   requestRules$ = this.requestRulesBus$.asObservable();
 
-  private rulesBus$ = new BehaviorSubject<PageData>({ role: Role.NONE, content: "", can_rollback: false });
+  private rulesBus$ = new BehaviorSubject<PageData>({ role: Role.NONE, content: "", date: new Date() });
   rules$ = this.rulesBus$.asObservable();
 
   constructor() { }

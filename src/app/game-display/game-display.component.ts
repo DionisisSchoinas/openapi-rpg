@@ -68,7 +68,7 @@ export class GameDisplayComponent implements OnInit, AfterViewChecked {
     if (text == null || text.trim().length == 0 || text.trim().length > 256)
       return;
 
-    this.pages.push({ role: Role.USER, content: text.trim(), can_rollback: false });
+    this.pages.push({ role: Role.USER, content: text.trim(), date: new Date() });
     this.apiRequesterService.newUserInput(this.pages);
   }
 
@@ -82,11 +82,17 @@ export class GameDisplayComponent implements OnInit, AfterViewChecked {
     this.pages = this.pages.slice(0, index + 1);
   }
 
+  canRollback(page: PageData): boolean {
+    if (page.role == Role.ASSISTANT)
+      return true;
+    return false;
+  }
+
   private loadDefault() {
     this.http.get('../../assets/default_rules/rules.txt', { responseType: 'text' })
       .subscribe(
         data => {
-          this.pages.push({ role: Role.SYSTEM, content: data, can_rollback: false });
+          this.pages.push({ role: Role.SYSTEM, content: data, date: new Date() });
         },
         error => {
           //TODO: handle error

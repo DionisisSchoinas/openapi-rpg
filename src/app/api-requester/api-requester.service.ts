@@ -43,7 +43,7 @@ interface ApiRequest {
 })
 export class ApiRequesterService {
 
-  private dataSource = new BehaviorSubject<PageData>({ role: Role.NONE, content: "", can_rollback: false });
+  private dataSource = new BehaviorSubject<PageData>({ role: Role.NONE, content: "", date: new Date() });
   currentData = this.dataSource.asObservable();
 
   private keyJson: { key: string } = Key;
@@ -73,7 +73,7 @@ export class ApiRequesterService {
     this.http.post<ApiResponse>('https://api.openai.com/v1/chat/completions', this.request, { headers: this.headers })
       .subscribe(
         resp => {
-          this.newData({ role: Role.ASSISTANT, content: resp.choices[0].message.content, can_rollback: true });
+          this.newData({ role: Role.ASSISTANT, content: resp.choices[0].message.content, date: new Date() });
         },
         error => {
           // TODO: Handle error

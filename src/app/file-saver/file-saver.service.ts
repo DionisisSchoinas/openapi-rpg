@@ -22,7 +22,7 @@ export class FileSaverService {
 
   saveData(data: PageData[]) {
     this.requestDataBus$.next(false);
-    if (data.length < 2 || this.lastSave.valueOf() + 5000 > new Date().valueOf()) {
+    if (this.lastSave.valueOf() + 5000 > new Date().valueOf()) {
       return;
     }
     this.lastSave = new Date();
