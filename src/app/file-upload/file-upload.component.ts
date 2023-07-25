@@ -21,8 +21,8 @@ export class FileUploadComponent {
         try {
           this.writeData(JSON.parse(text));
         } catch (error) {
-          //TODO: handle error
-          console.error("Could not parse JSON");
+          console.error(error);
+          throw new Error("Could not parse JSON file!");
         }
       })
     }

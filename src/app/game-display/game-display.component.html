@@ -44,13 +44,13 @@
                 </div>
                 <!-- With messages -->
                 <div class="mb-auto p-2" *ngIf="pages.length > 1">
-                    <div class="card col-md-9 mt-2 mb-2" [ngClass]="canRollback(page) ? '' : 'offset-md-3' "
+                    <div class="card col-md-9 mt-2 mb-2" [ngClass]="rollbackIsAllowed(page) ? '' : 'offset-md-3' "
                         *ngFor="let page of displayablePages(); index as i">
                         <div class="card-body">
                             <h4 class="card-title">{{ page.role }}</h4>
                             <h6 class="card-subtitle mb-3 text-body-secondary">{{ page.date | date: 'dd-MMM-yyyy HH:mm:ss' }}</h6>
                             <p class="card-text" [innerText]="page.content"></p>
-                            <button *ngIf="canRollback(page)" class="btn btn-outline-warning"
+                            <button *ngIf="rollbackIsAllowed(page)" class="btn btn-outline-warning"
                                 (click)="rollbackTo(i+1)">Rollback to this moment</button>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <h2 class="col">Abilities</h2>
-                    <button type="button" class="btn btn-primary col-auto">
+                    <button type="button" class="btn btn-primary col-auto" (click)="testLoad()">
                         <svg style="width: 25px; height: 25px;" role="img" aria-label="Info:">
                             <use xlink:href="#refresh-svg" />
                         </svg>

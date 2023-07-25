@@ -54,7 +54,7 @@ export class ApiRequesterService {
 
   request: ApiRequest = { model: 'gpt-3.5-turbo', messages: [], temperature: 1, max_tokens: 350, top_p: 1, frequency_penalty: 0, presence_penalty: 0 };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   newData(data: PageData) {
     this.dataSource.next(data)
@@ -65,20 +65,24 @@ export class ApiRequesterService {
     this.requestDataFromApi();
   }
 
-  updatedTexts(sources: PageData[]) {
-    this.request.messages = sources.map(source => { return { role: source.role, content: source.content}; });
+  private updatedTexts(sources: PageData[]) {
+    this.request.messages = sources.filter(source => source.role == Role.SYSTEM || source.role == Role.ASSISTANT || source.role == Role.USER).map(source => { return { role: source.role, content: source.content }; });
   }
 
   private requestDataFromApi() {
     this.http.post<ApiResponse>('https://api.openai.com/v1/chat/completions', this.request, { headers: this.headers })
       .subscribe(
-        resp => {
-          this.newData({ role: Role.ASSISTANT, content: resp.choices[0].message.content, date: new Date() });
-        },
-        error => {
-          // TODO: Handle error
-          console.log("Error:");
-          console.log(error.error);
+        {
+          next: (response) => {
+            this.newData({ role: Role.ASSISTANT, content: response.choices[0].message.content, date: new Date() });
+          },
+          error: (e) => {
+            this.newData({ role: Role.ERROR, content: '', date: new Date() });
+            if (e.error.error.message)
+              throw new Error(e.error.error.message);
+            else
+              throw new Error("Unexpected API error");
+          }
         }
       );
     // this.newData({ role: Role.ASSISTANT, content: "Response for : " + this.request.messages[this.request.messages.length - 1].content });
