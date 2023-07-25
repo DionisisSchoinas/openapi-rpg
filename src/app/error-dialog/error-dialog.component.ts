@@ -19,7 +19,7 @@ export class ErrorDialogComponent implements OnInit {
   ngOnInit(): void {
     this.errorDialogService.errorDialog$.subscribe(data => {
       if (data.open) {
-        var id = this.errorCounter++;
+        var id = "error-dialog-" + this.errorCounter++;
         this.errorDialogs.push({ id: id, open: data.open, message: data.message });
         setTimeout(() => {
             this.errorDialogs = this.errorDialogs.filter(x => x.id !== id);

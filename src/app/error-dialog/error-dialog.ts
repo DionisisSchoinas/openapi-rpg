@@ -1,5 +1,5 @@
 export interface ErrorDialog {
-    id?: number;
+    id?: string;
     open: boolean;
     message: string;
 }

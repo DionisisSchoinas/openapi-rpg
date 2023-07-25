@@ -100,10 +100,7 @@ export class GameDisplayComponent implements OnInit, AfterViewChecked {
   }
 
   testLoad() {
-    this.loadingDialogService.openDialog();
-    setTimeout(() => {
-      this.loadingDialogService.closeDialog();
-    }, 2000);
+    throw new Error("Test error");
   }
 
   private loadDefault() {
